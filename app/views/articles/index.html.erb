@@ -1,9 +1,18 @@
+<% if !@user %>
+  <p><%= link_to "Sign in",new_user_session_path() %></p>	
+  <p><%= link_to "Sign up",'users/sign_up' %></p>	
+<% end %>
 <h1>Articles</h1>
-
 <ul>
   <% @articles.each do |article| %>
     <li>
       <%= link_to article.title, article %>
     </li>
   <% end %>
-</ul
+</ul>
+<% if @user %>
+	<h1>Create Artcile</h1>
+	<p><%= link_to "NEW", new_article_path() %></p>	
+	<br>
+	<p><%= link_to "Sign out", destroy_user_session_path(), method:"delete" %></p>
+<% end %>	

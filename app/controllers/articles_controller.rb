@@ -1,30 +1,30 @@
 class ArticlesController < ApplicationController
   def index
     @articles = Article.all
+    @user= current_user
   end
 
   def show
     @article = Article.find(params[:id])
+    @user = current_user.id
   end
-
+  def my
+  	@article= Article.find(current_user.id)
+  end	
   def new
-    @article = Article.new
+    @article = current_user.articles.build
   end
 
   def create
-    @article = Article.new(article_params)
-
-    if @article.save
-      redirect_to @article
-    else
-      render :new
-    end
+    @article = current_user.articles.build(article_params)
+    @article.save()
+	redirect_to @article
   end
 
   def edit
     @article = Article.find(params[:id])
   end
-
+  	
   def update
     @article = Article.find(params[:id])
 
@@ -38,7 +38,6 @@ class ArticlesController < ApplicationController
   def destroy
     @article = Article.find(params[:id])
     @article.destroy
-
     redirect_to root_path
   end
 
