@@ -1,14 +1,14 @@
 <h1><%= @article.title %></h1>
 
 <p><%= @article.body %></p>
-<% if @article.user_id == @user %>  
+<% if @user %>
+<% if @article.user_id == @user.id %>  
   <ul>
     <li><%= link_to "Edit", edit_article_path(@article) %></li>
-    <li><%= link_to "Destroy", article_path(@article),
-                  method: :delete,
-                  data: { confirm: "Are you sure?" } %></li>
+    <li><%= link_to "Destroy", article_path(@article),method: :delete,data: { confirm: "Are you sure?" } %></li>
   </ul>
 <% end %>  
+<% end %>
   <h2>Comments</h2>
   <% @article.comments.each do |comment| %>
       <p>
@@ -20,12 +20,11 @@
     <strong>Comment:</strong>
     <%= comment.body %>
     </p>
-    <% if @article.user_id == @user %>  
-      <p><%= link_to "Destroy", [comment.article, comment],
-                  method: :delete,
-                  data: { confirm: "Are you sure?" } %></p>
+    <% if @user %>
+    <% if @article.user_id == @user.id %>  
+      <p><%= link_to "Destroy", [comment.article, comment],method: :delete,data: { confirm: "Are you sure?" } %></p>
     <% end %>              
-
+    <% end %>
   <% end %>
 <% if @user %>  
   <h2>Add a comment:</h2>

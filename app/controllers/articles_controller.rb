@@ -6,7 +6,7 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
-    @user = current_user.id
+    @user = current_user
   end
   def my
   	@article= Article.find(current_user.id)
@@ -18,7 +18,7 @@ class ArticlesController < ApplicationController
   def create
     @article = current_user.articles.build(article_params)
     @article.save()
-	redirect_to @article
+	  redirect_to @article
   end
 
   def edit
